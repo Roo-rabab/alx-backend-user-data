@@ -1,23 +1,13 @@
 #!/usr/bin/env python3
+"""
+Main file
+"""
 
-# Import the get_db function from filtered_logger.py
-from filtered_logger import get_db
+filter_datum = __import__('filtered_logger').filter_datum
 
-# Call the get_db function to obtain a database connection
-db = get_db()
+fields = ["password", "date_of_birth"]
+messages = ["name=egg;email=eggmin@eggsample.com;password=eggcellent;date_of_birth=12/12/1986;", "name=bob;email=bob@dylan.com;password=bobbycool;date_of_birth=03/04/1993;"]
 
-# Check if the connection was successful
-if db:
-    # Create a cursor object to execute SQL queries
-    cursor = db.cursor()
-
-    # Execute the SQL query to get the count of users from the 'users' table
-    cursor.execute("SELECT COUNT(*) FROM users;")
-
-    # Iterate over the result set and print the count of users
-    for row in cursor:
-        print(row[0])
-
-    # Close the cursor and database connection
-    cursor.close()
-    db.close()
+for message in messages:
+    print(filter_datum(fields, 'xxx', message, ';'))
+    # filter_datum(fields, 'xxx', message, ';')
