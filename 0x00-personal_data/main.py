@@ -1,15 +1,8 @@
--- setup mysql server
--- configure permissions
-CREATE DATABASE IF NOT EXISTS my_db;
-CREATE USER IF NOT EXISTS root@localhost IDENTIFIED BY 'root';
-GRANT ALL PRIVILEGES ON my_db.* TO 'root'@'localhost';
+from filtered_logger import filter_datum
 
-USE my_db;
+fields = ["password", "date_of_birth"]
+messages = ["name=egg;email=eggmin@eggsample.com;password=eggcellent;date_of_birth=12/12/1986;",
+            "name=bob;email=bob@dylan.com;password=bobbycool;date_of_birth=03/04/1993;"]
 
-DROP TABLE IF EXISTS users;
-CREATE TABLE users (
-    email VARCHAR(256)
-);
-
-INSERT INTO users(email) VALUES ("bob@dylan.com");
-INSERT INTO users(email) VALUES ("bib@dylan.com");
+for message in messages:
+    print(filter_datum(fields, 'xxx', message, ';'))
